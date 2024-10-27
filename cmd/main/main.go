@@ -15,7 +15,7 @@ func main() {
 	log.Debug("DEBUG MODE ENABLED")
 	log.Info("Welcome to sgRPC")
 
-	application := app.New(log, cfg.Port, cfg.StoragePath, cfg.TokenTTL)
+	application := app.New(log, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTTL)
 
 	application.GRPCSrv.MustRun()
 

@@ -8,10 +8,15 @@ import (
 )
 
 type Config struct {
-	TokenTTL    time.Duration `yaml:"token_ttl" env-default:"1h"`
-	StoragePath string        `yaml:"storage_path" env-required:"true"`
 	Env         string        `yaml:"env" env-default:"local"`
-	Port        int
+	StoragePath string        `yaml:"storage_path" env-required:"true"`
+	GRPC        GRPCConfig    `yaml:"grpc"`
+	TokenTTL    time.Duration `yaml:"token_ttl" env-default:"1h"`
+}
+
+type GRPCConfig struct {
+	Port    int           `yaml:"port"`
+	Timeout time.Duration `yaml:"timeout"`
 }
 
 func MustLoad() *Config {
@@ -24,7 +29,7 @@ func MustLoad() *Config {
 	var cfg Config
 
 	if err := cleanenv.ReadConfig(configPath, &cfg); err != nil {
-		log.Fatalf("config file not found: %s", configPath)
+		log.Fatalf("can't read config file: %s", configPath)
 	}
 
 	return &cfg
