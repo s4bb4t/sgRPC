@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/s4bb4t/sgRPC/internal/app"
 	"github.com/s4bb4t/sgRPC/internal/config"
 	"log/slog"
 	"os"
@@ -14,7 +15,9 @@ func main() {
 	log.Debug("DEBUG MODE ENABLED")
 	log.Info("Welcome to sgRPC")
 
-	// TODO: init gRPC app
+	application := app.New(log, cfg.Port, cfg.StoragePath, cfg.TokenTTL)
+
+	application.GRPCSrv.MustRun()
 
 	// TODO: run gRPC app
 }

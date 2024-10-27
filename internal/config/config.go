@@ -8,10 +8,10 @@ import (
 )
 
 type Config struct {
-	Env      string
-	Port     string
-	TokenTTL time.Duration
-	Timeout  time.Duration
+	TokenTTL    time.Duration `yaml:"token_ttl" env-default:"1h"`
+	StoragePath string        `yaml:"storage_path" env-required:"true"`
+	Env         string        `yaml:"env" env-default:"local"`
+	Port        int
 }
 
 func MustLoad() *Config {
